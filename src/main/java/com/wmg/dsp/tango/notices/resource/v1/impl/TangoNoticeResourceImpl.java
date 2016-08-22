@@ -1,9 +1,12 @@
 package com.wmg.dsp.tango.notices.resource.v1.impl;
 
+import com.wmg.dsp.tango.jazz.commons.bootstrap.exception.response.BusinessValidationException;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.PaginationInfoWrapper;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.RequestResponseUtils;
 import com.wmg.dsp.tango.jazz.commons.shared.ServiceConstants;
 import com.wmg.dsp.tango.jazz.commons.shared.validation.ValidationErrorEnum;
+import com.wmg.dsp.tango.jazz.commons.utils.annotations.UserToken;
+import com.wmg.dsp.tango.jazz.commons.utils.annotations.UserTokenAware;
 import com.wmg.dsp.tango.notices.domain.cassandra.TangoNotice;
 import com.wmg.dsp.tango.notices.domain.cassandra.TangoNoticeView;
 import com.wmg.dsp.tango.notices.manager.view.TangoNoticeViewManager;
@@ -17,6 +20,7 @@ import org.springframework.util.StringUtils;
 import javax.validation.constraints.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -26,7 +30,7 @@ import java.util.UUID;
 public class TangoNoticeResourceImpl implements TangoNoticeResource {
 
     @Autowired
-    private TangoNoticeViewManager manager;
+    private TangoNoticeViewManager tangoNoticeViewManager;
 
     private void generateIds(List<TangoNotice> testEntities) {
         for (TangoNotice tangoNotice : testEntities) {
@@ -59,17 +63,28 @@ public class TangoNoticeResourceImpl implements TangoNoticeResource {
     }*/
 
     @Override
-    public Response getById(UUID entityId, String viewName, String userToken) {
+    @UserTokenAware
+    public Response getById(UUID entityId, String viewName, @UserToken String userToken) {
         switch (viewName) {
             case TangoNoticeViews.TangoNoticeView:
-                TangoNoticeView tangoTangoNoticeView = manager.getById(entityId);
+                TangoNoticeView tangoNoticeView = tangoNoticeViewManager.getById(entityId);
+                return Response.ok(tangoNoticeView).build();
+            default:
+                throw new BusinessValidationException("Invalid view name");
         }
-        return null;
     }
 
     @Override
-    public Response getByIds(@ApiParam(value = "Array of ids separated by comma. Example: " + "[\"fe0e2815-eefc-4f7e-bbb0-adcb7c439a2f\", \"e17e6dea-cb51-4bd0-b194-26de3b1b8faa\"]") @NotNull(message = ValidationErrorEnum.NOT_NULL_STR) @Size(max = 100, message = ValidationErrorEnum.MAX_PAGE_LIMIT_STR) Set<UUID> ids, @Pattern(regexp = "(?-i)NoticeView", message = ValidationErrorEnum.PATTERN_STR) @ApiParam(value = "View name (TangoNoticeView)") @NotNull(message = ValidationErrorEnum.NOT_NULL_STR) @QueryParam("view_name") String viewName, @HeaderParam(ServiceConstants.DEFAULT_AUTHORIZATION) @ApiParam(value = "User token") String userToken) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    @UserTokenAware
+    public Response getByIds(Set<UUID> ids, String viewName, @UserToken String userToken) {
+        switch (viewName) {
+            case TangoNoticeViews.TangoNoticeView: {
+                Collection<TangoNoticeView> personViews = tangoNoticeViewManager.getByIds(ids);
+                return Response.ok(personViews).build();
+            }
+            default:
+                throw new BusinessValidationException("Invalid view name");
+        }
     }
 
     @Override

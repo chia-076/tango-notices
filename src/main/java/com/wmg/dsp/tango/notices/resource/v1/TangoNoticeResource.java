@@ -24,14 +24,6 @@ public interface TangoNoticeResource {
 
     String BASE_PATH = "/notices";
 
-    String DEFAULT_VALUE = "[\n" +
-            "  {\n" +
-            "    \"id\": \"10017c6e-5144-11e5-885d-feff819cdc9f\",\n" +
-            "    \"value\": \"value\",\n" +
-            "    \"money\": 25.15\n" +
-            "  }\n" +
-            "]";
-
     @GET
     @Path("/{id}")
     @Produces("application/json")
@@ -46,7 +38,7 @@ public interface TangoNoticeResource {
             @Pattern(regexp = "(?-i)NoticeView", message = ValidationErrorEnum.PATTERN_STR)
             @ApiParam(value = "View name (TangoNoticeView)")
             @NotNull(message = ValidationErrorEnum.NOT_NULL_STR)
-            @QueryParam("notice_name")
+            @QueryParam("view_name")
             String viewName,
 
             @HeaderParam(ServiceConstants.DEFAULT_AUTHORIZATION)
