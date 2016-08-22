@@ -1,0 +1,10 @@
+---
+applications:
+- name: tango-notices
+  path: tango-notices-service.war
+  mem: 512M
+  instances: 1
+  services:
+  - tango_bs_identity
+  - tango_bs_cassandra
+  - log-drain-service

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+    <artifactId>project-parent</artifactId>
+    <groupId>com.wmg.dsp.tango.samples</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+    <groupId>com.wmg.dsp.tango.notices</groupId>
+    <artifactId>notices</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>tango-notices-service</name>
+    <description>Tango Base Platform V1 Service</description>
+
+    <build>
+        <finalName>tango-notices-service</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <path>/</path>
+                    <port>8080</port>
+                    <useSeparateTomcatClassLoader>true</useSeparateTomcatClassLoader>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <archive>
+                        <manifestEntries>
+                            <Modules>${platform.modules}</Modules>
+                            <service_name>${project.name}</service_name>
+                            <service_version>${project.version}</service_version>
+                            <build_time>${buildTime}</build_time>
+                            <build_number>${buildNumber}</build_number>
+                            <git_commit>${gitCommit}</git_commit>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <testSource>1.7</testSource>
+                    <testTarget>1.7</testTarget>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <jazz-platform.version>1.12.1</jazz-platform.version>
+        <platform.modules>bootloader,swagger-ui-module,jersey2-module,akka-system-module,cassandrasecurity-module,security-module,cassandra-module,dataprovider-module</platform.modules>
+        <spring.version>4.0.2.RELEASE</spring.version>
+        <maven-war-plugin.version>2.1.1</maven-war-plugin.version>
+        <javaee-api.version>6.0</javaee-api.version>
+
+        <slf4j.version>1.7.5</slf4j.version>
+
+        <buildNumber>N/A</buildNumber>
+        <buildTime>N/A</buildTime>
+        <gitCommit>N/A</gitCommit>
+
+        <defaultConsistencyLevel>LOCAL_QUORUM</defaultConsistencyLevel>
+        <seedAdresses>10.0.1.171:9042</seedAdresses>
+        <port>9042</port>
+        <clusterName>tango_dev</clusterName>
+        <keyspaceName>tango_base_sample</keyspaceName>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wmg.dsp.platform</groupId>
+            <artifactId>bootloader</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>dataprovider-module</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>cassandra-module</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>security-module</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>cassandrasecurity-module</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>akka-system-module</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+        <!-- Common webapp spring+jersey binding -->
+
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>jersey2-module</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>swagger-ui-module</artifactId>
+            <version>${jazz-platform.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>elasticsearch-api</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>messaging-api</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.platform.modules</groupId>
+            <artifactId>rabbit-messaging</artifactId>
+            <version>${jazz-platform.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>update-db</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.wmg.dsp.platform.tools</groupId>
+                        <artifactId>dsl-maven-plugin</artifactId>
+                        <version>${jazz-platform.version}</version>
+                        <configuration>
+                            <readConsistencyLevel>${defaultConsistencyLevel}</readConsistencyLevel>
+                            <writeConsistencyLevel>${defaultConsistencyLevel}</writeConsistencyLevel>
+                            <seedAdresses>${seedAdresses}</seedAdresses>
+                            <port>${port}</port>
+                            <clusterName>${clusterName}</clusterName>
+                            <keyspaceName>${keyspaceName}</keyspaceName>
+                            <mainScript>${basedir}/database/master.groovy</mainScript>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>update-db</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+    <distributionManagement>
+        <repository>
+            <id>deploymentRepo</id>
+            <name>Internal Releases</name>
+            <url>http://nexus.shared.wmg.com:8080/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>deploymentRepo</id>
+            <name>Snapshots</name>
+            <url>http://nexus.shared.wmg.com:8080/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

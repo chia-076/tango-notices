@@ -1,0 +1,16 @@
+---
+application_name: tango-notices
+service_name: tango-notices-service
+api_versions:
+- v1
+
+cassandra:
+  keyspace_type: tango_base_sample
+  use_cql_port: true
+
+acls:
+  client_id: tango-base-service
+  client_secret: appclientsecret
+  client_description: Tango Base Service
+  scope: tokens.write,tokens.read,password.write,user_info.read,openid
+  authorities: uaa.resource
