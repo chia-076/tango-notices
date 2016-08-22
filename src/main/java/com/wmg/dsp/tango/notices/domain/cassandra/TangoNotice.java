@@ -20,12 +20,11 @@ public class TangoNotice extends BaseParentExtEntity {
 
     public static final String EVENT_ID = "event_id";
     public static final String COMMENT = "comment";
-    public static final String USER_ID = "user_id";
-    public static final String USER_PROFILE = "user_profile";
+    public static final String USER_NAME = "user_name";
+    public static final String USER_PROFILE_ID = "user_profile_id";
     public static final String DATE = "date";
     public static final String NOTICE_TYPE = "notice_type";
     public static final String NOTICE_REASON = "notice_reason";
-
 
     @Id
     @JsonProperty
@@ -39,17 +38,19 @@ public class TangoNotice extends BaseParentExtEntity {
     @JsonProperty(COMMENT)
     private String comment;
 
-    private String user; // TODO: placeholder for Tango User object
+    @JsonProperty(USER_NAME)
+    private String userName;
+
+    @Column(USER_PROFILE_ID)
+    @JsonProperty(USER_PROFILE_ID)
+    private UUID userProfileId;
 
     @Column(DATE)
     @JsonProperty(DATE)
     private Date date;
 
-    @Column()
     private String noticeType; //TODO: placeholder for TangoNotice Type
-
     private String noticeEntity; //TODO: placeholder for TangoNotice Entity
-
     private String noticeReason; //TODO: placeholder for TangoNotice Reas0000000000000000on
 
     public UUID getId() {
@@ -60,23 +61,47 @@ public class TangoNotice extends BaseParentExtEntity {
         this.id = id;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public UUID getUserProfileId() {
+        return userProfileId;
+    }
+
+    public void setUserProfileId(UUID userProfileId) {
+        this.userProfileId = userProfileId;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public Date getCreatedAt() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return date;
     }
 
     @Override
     public void setCreatedAt(Date date) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        this.date = date;
     }
 
     @Override
     public UUID getEventId() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;  // TODO: fix me
     }
 
     @Override
     public void setEventId(UUID uuid) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        //TODO: fix me
     }
 }
