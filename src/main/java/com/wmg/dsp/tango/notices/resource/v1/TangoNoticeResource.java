@@ -1,4 +1,4 @@
-package com.wmg.dsp.tango.notices.resource.v1.notice;
+package com.wmg.dsp.tango.notices.resource.v1;
 
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.PaginationInfoWrapper;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.RequestResponseUtils;

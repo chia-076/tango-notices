@@ -1,4 +1,4 @@
-package com.wmg.dsp.tango.notices.resource.v1.notice.impl;
+package com.wmg.dsp.tango.notices.resource.v1.impl;
 
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.PaginationInfoWrapper;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.RequestResponseUtils;
@@ -8,7 +8,7 @@ import com.wmg.dsp.tango.notices.domain.cassandra.TangoNotice;
 import com.wmg.dsp.tango.notices.domain.cassandra.TangoNoticeView;
 import com.wmg.dsp.tango.notices.manager.view.TangoNoticeViewManager;
 import com.wmg.dsp.tango.notices.manager.view.TangoNoticeViews;
-import com.wmg.dsp.tango.notices.resource.v1.notice.TangoNoticeResource;
+import com.wmg.dsp.tango.notices.resource.v1.TangoNoticeResource;
 import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
