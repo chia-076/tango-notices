@@ -20,31 +20,21 @@ import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Api(value = TangoNoticeEntityResource.BASE_PATH, description = "Tango TangoNotice entities resource")
+@Api(value = TangoNoticeEntityResource.BASE_PATH, description = "Tango Notice entities resource")
 @Validated
 @Produces(APPLICATION_JSON)
 public interface TangoNoticeEntityResource {
 
     String BASE_PATH = "/entities";
 
-    String DEFAULT_VALUE = "[\n" +
-            "  {\n" +
-            "    \"id\": \"10017c6e-5144-11e5-885d-feff819cdc9f\",\n" +
-            "    \"value\": \"value\",\n" +
-            "    \"money\": 25.15\n" +
-            "  }\n" +
-            "]";
-
     @POST
     @Produces(APPLICATION_JSON)
-    @ApiOperation(value = "Saves List of Notices", response = Response.class)
+    @ApiOperation(value = "Saves Tango Notice", response = Response.class)
     Response create(
             @Valid
-            @ApiParam(value = "Array of ids separated by comma. Example: "
-                    + "[\"fe0e2815-eefc-4f7e-bbb0-adcb7c439a2f\", \"e17e6dea-cb51-4bd0-b194-26de3b1b8faa\"]")
+            @ApiParam(value = "Tango Notice json data", defaultValue = "") //TODO: fix me - json data
             @NotNull(message = ValidationErrorEnum.NOT_NULL_STR)
-            @Size(min = 1, message = ValidationErrorEnum.MIN_STR)
-            List<TangoNotice> testEntities,
+            TangoNotice tangoNotice,
 
             @HeaderParam(ServiceConstants.DEFAULT_AUTHORIZATION)
             @ApiParam(value = "User token")
