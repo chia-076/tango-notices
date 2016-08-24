@@ -6,8 +6,10 @@ import com.wmg.dsp.platform.persistence.annotations.Id;
 import com.wmg.dsp.platform.persistence.cassandra.annotations.Column;
 import com.wmg.dsp.platform.persistence.cassandra.annotations.ColumnFamily;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.GenericStringSerializer;
+import com.wmg.dsp.tango.jazz.commons.bootstrap.util.JsonUtils;
 import com.wmg.dsp.tango.jazz.commons.domain.BaseEntity;
 import com.wmg.dsp.tango.jazz.commons.shared.validation.constraints.CheckDomainObject;
+import com.wmg.dsp.tango.notices.domain.dto.NoticeDTO;
 
 import java.util.UUID;
 
@@ -30,6 +32,11 @@ public class NoticeView extends BaseEntity<UUID> {
     public NoticeView() {
     }
 
+    public NoticeView(UUID id, NoticeDTO noticeDTO) {
+        this.id = id;
+        this.data = JsonUtils.getValueAsString(noticeDTO);
+    }
+
     public NoticeView(UUID id, String data) {
         this.id = id;
         this.data = data;
@@ -41,7 +48,7 @@ public class NoticeView extends BaseEntity<UUID> {
     }
 
     @Override
-    public void setId(UUID uuid) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

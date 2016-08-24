@@ -20,6 +20,10 @@
         <finalName>tango-notices-service</finalName>
     </build>
 
+    <properties>
+        <du-commons.version>3.0.10-SNAPSHOT</du-commons.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.wmg.dsp.tango.jazz</groupId>
@@ -30,6 +34,17 @@
             <groupId>com.wmg.dsp.tango.jazz</groupId>
             <artifactId>tango-jazz-commons</artifactId>
             <version>0.0.9-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.wmg.dsp.tango.du</groupId>
+            <artifactId>commons</artifactId>
+            <version>${du-commons.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>
