@@ -51,7 +51,7 @@ public class NoticeViewResourceImpl extends AbstractSortableElasticSearchResourc
     @UserTokenAware
     public Response getById(UUID entityId, String viewName, @UserToken String userToken) {
         switch (viewName) {
-            case NoticeViews.TangoNoticeView:
+            case NoticeViews.NoticeView:
                 NoticeView noticeView = noticeViewManager.getById(entityId);
                 return Response.ok(noticeView).build();
             default:
@@ -63,7 +63,7 @@ public class NoticeViewResourceImpl extends AbstractSortableElasticSearchResourc
     @UserTokenAware
     public Response getByIds(Set<UUID> ids, String viewName, @UserToken String userToken) {
         switch (viewName) {
-            case NoticeViews.TangoNoticeView: {
+            case NoticeViews.NoticeView: {
                 Collection<NoticeView> personViews = noticeViewManager.getByIds(ids);
                 return Response.ok(personViews).build();
             }
