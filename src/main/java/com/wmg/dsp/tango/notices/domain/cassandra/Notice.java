@@ -8,6 +8,9 @@ import com.wmg.dsp.platform.persistence.cassandra.annotations.ColumnFamily;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.domain.common.BaseParentExtEntity;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.manager.event.dispatcher.EventEntity;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.util.JsonDateTimeSerializer;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.UUID;
@@ -132,11 +135,56 @@ public class Notice extends BaseParentExtEntity {
 
     @Override
     public UUID getEventId() {
-        return null;  // TODO: fix me
+        return eventId;
     }
 
     @Override
-    public void setEventId(UUID uuid) {
-        //TODO: fix me
+    public void setEventId(UUID eventId) {
+        this.eventId = eventId;
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(userName)
+                .append(userProfileId)
+                .append(comment)
+                .append(noticeEntityCode)
+                .append(noticeTypeCode)
+                .append(noticeReasonCode)
+                .append(date)
+                .toHashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Notice)) {
+            return false;
+        }
+
+        Notice that = (Notice) obj;
+        return new EqualsBuilder()
+                .append(this.userName, that.userName)
+                .append(this.userProfileId, that.userProfileId)
+                .append(this.comment, that.comment)
+                .append(this.noticeEntityCode, that.noticeEntityCode)
+                .append(this.noticeTypeCode, that.noticeTypeCode)
+                .append(this.noticeReasonCode, that.noticeReasonCode)
+                .append(this.date, that.date)
+                .isEquals();
+    }
+
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("userName", userName)
+                .append("userProfileId", userProfileId)
+                .append("comment", comment)
+                .append("noticeEntityCode", noticeEntityCode)
+                .append("noticeTypeCode", noticeTypeCode)
+                .append("noticeReasonCode", noticeReasonCode)
+                .append("date", date)
+                .toString();
     }
 }

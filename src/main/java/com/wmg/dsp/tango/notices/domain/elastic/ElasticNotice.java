@@ -8,8 +8,10 @@ import com.wmg.dsp.tango.jazz.commons.domain.ESPropertyType;
 import com.wmg.dsp.tango.jazz.commons.domain.IndexedPropertyType;
 import com.wmg.dsp.tango.jazz.commons.utils.Utils;
 import com.wmg.dsp.tango.notices.domain.cassandra.Notice;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @IndexedDocument(ElasticNotice.DOCUMENT)
@@ -48,34 +50,42 @@ public class ElasticNotice extends BaseEntity<UUID> {
     }
 
     @Override
-    public void setId(UUID uuid) { this.id = uuid; }
+    public void setId(UUID uuid) {
+        this.id = uuid;
+    }
 
-    public String getRawNotice() { return rawNotice; }
+    public String getRawNotice() {
+        return rawNotice;
+    }
 
-    public void setRawNotice(String rawNotice) { this.rawNotice = rawNotice; }
+    public void setRawNotice(String rawNotice) {
+        this.rawNotice = rawNotice;
+    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return new HashCodeBuilder()
+                .append(id)
+                .toHashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == this) return true;
+        if (!(obj instanceof Notice)) {
             return false;
         }
-        final ElasticNotice other = (ElasticNotice) obj;
-        return Objects.equals(this.id, other.id);
+
+        ElasticNotice that = (ElasticNotice) obj;
+        return new EqualsBuilder()
+                .append(this.id, that.id)
+                .isEquals();
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ElasticNotice{");
-        sb.append("id=").append(id);
-        sb.append('}');
-        return sb.toString();
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .toString();
     }
 }

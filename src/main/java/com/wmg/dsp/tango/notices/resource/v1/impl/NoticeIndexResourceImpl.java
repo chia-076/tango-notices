@@ -25,12 +25,10 @@ public class NoticeIndexResourceImpl extends AbstractIndexResourceImpl<Notice, E
     private static final Logger log = LoggerFactory.getLogger(NoticeIndexResourceImpl.class);
 
     @Autowired
-    private NoticeDataRepository noticeDataRepository;
-
-    @Autowired
     private DTOBuilder dtoBuilder;
 
-    public NoticeIndexResourceImpl() { super(Notice.class, ElasticNotice.class);
+    public NoticeIndexResourceImpl() {
+        super(Notice.class, ElasticNotice.class);
     }
 
     @Override

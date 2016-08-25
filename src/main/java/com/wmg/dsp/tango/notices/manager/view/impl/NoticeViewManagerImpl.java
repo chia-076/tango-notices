@@ -26,7 +26,7 @@ public class NoticeViewManagerImpl extends AbstractViewManagerImpl<Notice, Notic
 
     @Override
     public NoticeView reconstructView(Notice notice) {
-        NoticeDTO dto = null;
+        NoticeDTO dto;
 
         try {
             dto = dtoBuilder.build(notice, NoticeDTO.class);
