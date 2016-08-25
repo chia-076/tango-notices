@@ -1,5 +1,7 @@
 package com.wmg.dsp.tango.notices.manager.search.impl;
 
+import com.wmg.dsp.tango.jazz.commons.bootstrap.domain.event.EventStepType;
+import com.wmg.dsp.tango.jazz.commons.bootstrap.manager.event.dispatcher.EventStepProcessor;
 import com.wmg.dsp.tango.jazz.commons.bootstrap.manager.search.impl.AbstractGenericSearchManagerImpl;
 import com.wmg.dsp.tango.jazz.commons.search.ranking.RankingQueryBuilder;
 import com.wmg.dsp.tango.notices.domain.cassandra.Notice;
@@ -10,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-//TODO: implement me
 @Component
+@EventStepProcessor(step = EventStepType.CONSTRUCT_VIEW, entityType = {"Notice"})
 public class NoticeSearchManagerImpl extends AbstractGenericSearchManagerImpl<NoticeDTO, Notice, ElasticNotice> implements NoticeSearchManager {
     private static final Logger log = LoggerFactory.getLogger(NoticeSearchManagerImpl.class);
 
@@ -20,12 +22,13 @@ public class NoticeSearchManagerImpl extends AbstractGenericSearchManagerImpl<No
     }
 
     @Override
-    protected String getRawFieldName() {
+    public RankingQueryBuilder getRankingQueryBuilder() {
+        //TODO: ranking query builder implementation
         return null;
     }
 
     @Override
-    public RankingQueryBuilder getRankingQueryBuilder() {
-        return null;
+    protected String getRawFieldName() {
+        return ElasticNotice.RAW_NOTICE;
     }
 }

@@ -12,8 +12,4 @@ public class NoticeDataRepository extends ExtBaseDataRepository<Notice, UUID> {
     public NoticeDataRepository(Class<Notice> entityClass) {
         super(entityClass);
     }
-
-    public Notice save(Notice notices) throws Exception {
-        return update(notices);
-    }
 }
