@@ -36,8 +36,8 @@ public interface NoticeViewResource {
             @PathParam("id")
             UUID entityId,
 
-            @Pattern(regexp = "(?-i)" + NoticeViews.TangoNoticeView, message = ValidationErrorEnum.PATTERN_STR)
-            @ApiParam(value = "View name (" + NoticeViews.TangoNoticeView + ")")
+            @Pattern(regexp = "(?-i)" + NoticeViews.NoticeView, message = ValidationErrorEnum.PATTERN_STR)
+            @ApiParam(value = "View name (" + NoticeViews.NoticeView + ")")
             @NotNull(message = ValidationErrorEnum.NOT_NULL_STR)
             @QueryParam("view_name")
             String viewName,
@@ -58,8 +58,8 @@ public interface NoticeViewResource {
             @Size(max = 100, message = ValidationErrorEnum.MAX_PAGE_LIMIT_STR)
             Set<UUID> ids,
 
-            @Pattern(regexp = "(?-i)" + NoticeViews.TangoNoticeView, message = ValidationErrorEnum.PATTERN_STR)
-            @ApiParam(value = "View name (" + NoticeViews.TangoNoticeView + ")")
+            @Pattern(regexp = "(?-i)" + NoticeViews.NoticeView, message = ValidationErrorEnum.PATTERN_STR)
+            @ApiParam(value = "View name (" + NoticeViews.NoticeView + ")")
             @NotNull(message = ValidationErrorEnum.NOT_NULL_STR)
             @QueryParam("view_name")
             String viewName,
