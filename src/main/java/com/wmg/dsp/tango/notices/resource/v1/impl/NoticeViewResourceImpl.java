@@ -74,7 +74,7 @@ public class NoticeViewResourceImpl extends AbstractSortableElasticSearchResourc
 
     @Override
     @UserTokenAware
-    public PaginationInfoWrapper<NoticeDTO> find(String filter, Integer page, Integer limit, String sortBy, String requestedFields, String userToken) {
+    public PaginationInfoWrapper<NoticeDTO> find(String filter, Integer page, Integer limit, String sortBy, String requestedFields, @UserToken String userToken) {
         FilterTree filterTree = constructFilterTree(filter);
         log.debug("Calling service 'find' with filter {}", filter != null ? filter : "");
 
@@ -85,7 +85,7 @@ public class NoticeViewResourceImpl extends AbstractSortableElasticSearchResourc
 
     @Override
     @UserTokenAware
-    public List<PaginationInfoWrapper<NoticeDTO>> findByFilters(List<String> filters, Integer page, Integer limit, String sortBy, String requestedFields, String userToken) {
+    public List<PaginationInfoWrapper<NoticeDTO>> findByFilters(List<String> filters, Integer page, Integer limit, String sortBy, String requestedFields, @UserToken String userToken) {
         List<PaginationInfoWrapper<NoticeDTO>> results = new LinkedList<>();
         if (filters != null) {
             for (String filter : filters) {
